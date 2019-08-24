@@ -23,7 +23,13 @@ $(document).ready(function() {
       alert("Time's Up!")
       score ();
     }
-  }  
+
+    $("#submit-button").on("click", function () {
+       score ()
+       stop ()
+    })
+
+  } 
 
   function stop () {
     clearInterval(timeID)
@@ -44,25 +50,24 @@ $(document).ready(function() {
 
   var answersDisplay0 = $("<div>")
   for (var i=0; i < answersQues0.length; i++) {
-    $(answersDisplay0).append("<input type='radio' name=" + answerValues[i] + " value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
+    $(answersDisplay0).append("<input type='radio' name=ques1 value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
   };
 
   var answersDisplay1 = $("<div>")
-  for (var i=0; i < answersQues1.length; i++) {
-    $(answersDisplay1).append("<input type='radio' name=" + answerValues[i] + " value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
+  for (var i=0; i < answersQues0.length; i++) {
+    $(answersDisplay1).append("<input type='radio' name=ques2 value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
   };
 
   var answersDisplay2 = $("<div>")
   for (var i=0; i < answersQues2.length; i++) {
-    $(answersDisplay2).append("<input type='radio' name=" + answerValues[i] + " value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
+    $(answersDisplay2).append("<input type='radio' name=ques3 value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
   };
 
   var answersDisplay3 = $("<div>")
   for (var i=0; i < answersQues3.length; i++) {
-    $(answersDisplay3).append("<input type='radio' name=" + answerValues[i] + " value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
+    $(answersDisplay3).append("<input type='radio' name=ques4 value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
   };
 
-  
 
   function displayQuestions() {
     $("#quiz-questions").show();
@@ -85,20 +90,25 @@ $(document).ready(function() {
     $(answersDisplay2).addClass("btn-group");
     $(answersDisplay3).addClass("btn-group");
 
-  };
 
-  $("input").click(function () {
-    $(userAnswers).push(this.value);
-  });
+  };
 
   var correct = 0
   var incorrect = 0
   var unanswered = 0
 
   function score () {
+
+    var userAnswers = []
+
+    $("input").click(function () {
+      var userPick = $("input:checked").val();
+      userAnswers.push(userPick)
+      console.log(userAnswers)
+    });
     
-    for (var i = 0; i < quizQuestions[i].length; i++) {
-      if (quizQuestions[i].correctAnswer === userAnswers[i]) {
+    for (var i = 0; i < userAnswers[i].length; i++) {
+      if (correctAnswerValues[i] === userAnswers[i]) {
         correct++;
       }
         else if (userAnswers[i] === null) {
@@ -114,16 +124,4 @@ $(document).ready(function() {
 });
 
 
-/* function displayQuestions() {
-  $("#quiz-questions").show();
-  for (var i = 0; i < quizQuestions.length; i++) {
-    $("#quiz-questions").append("<p>" + quizQuestions[i].question + "</p>");
-  for (var j = 0; j < quizQuestions[i].answers.length; j++)
-    $("#quiz-questions").append("<input type='radio' class='d-inline' value=" + quizQuestions[i].correctAnswer + "> " + quizQuestions[i].answers[j] + "</input><br><br>");
-  }
-  $("input").click(function () {
-    $(userAnswers).push(this.value);
-  });
-};
-
-*/
+/* need to figure out how to verify user answers with correct answers & then show the results */
