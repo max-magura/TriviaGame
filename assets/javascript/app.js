@@ -31,6 +31,7 @@ $(document).ready(function() {
 
   $("#submit-button").on("click", score)
 
+
   var quizQuestions = [
     {
       question: "What training program does everyone miss on their first time?",
@@ -53,6 +54,7 @@ $(document).ready(function() {
       correctAnswer:  3,
     }
   ]
+  
   var userAnswers = []
   for (var i = 0; i < quizQuestions.length; i++) {
     userAnswers[i] = null;
@@ -60,11 +62,21 @@ $(document).ready(function() {
 
   function displayQuestions() {
     $("#quiz-questions").show();
+
+    var questionDisplay
     for (var i = 0; i < quizQuestions.length; i++) {
-      $("#quiz-questions").append("<p>" + quizQuestions[i].question + "</p>");
-    for (var j = 0; j < quizQuestions[i].answers.length; j++)
-      $("#quiz-questions").append("<label class='radio-inline'><input type='radio' value=" + quizQuestions[i].correctAnswer + "> " + quizQuestions[i].answers[j] + "</input></label><br><br>");
+      $(questionDisplay).append("<p>" + quizQuestions[i].question + "</p>");
     }
+
+    var answerDisplay
+    for (var j = 0; j < quizQuestions[i].answers.length; j++) {
+      $(answerDisplay).append("<input type='radio' class='d-inline' value=" + quizQuestions[i].correctAnswer + "> " + quizQuestions[i].answers[j] + "</input><br><br>");
+    }
+
+    $("#quiz-questions").append(questionDisplay)
+    $("#quiz-questions").append(answerDisplay)
+
+
     $("input").click(function () {
       $(userAnswers).push(this.value);
     });
@@ -91,3 +103,18 @@ $(document).ready(function() {
   }
 
 });
+
+
+/* function displayQuestions() {
+  $("#quiz-questions").show();
+  for (var i = 0; i < quizQuestions.length; i++) {
+    $("#quiz-questions").append("<p>" + quizQuestions[i].question + "</p>");
+  for (var j = 0; j < quizQuestions[i].answers.length; j++)
+    $("#quiz-questions").append("<input type='radio' class='d-inline' value=" + quizQuestions[i].correctAnswer + "> " + quizQuestions[i].answers[j] + "</input><br><br>");
+  }
+  $("input").click(function () {
+    $(userAnswers).push(this.value);
+  });
+};
+
+*/
