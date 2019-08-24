@@ -10,51 +10,84 @@ $(document).ready(function() {
   function start() {
     clearInterval(timeID);
     timeID = setInterval(decreaseTime, 1000);
+    displayQuestions()
   }
 
   function decreaseTime() {
     time--;
     $("#time").html("<h2>" + time + " seconds remaing" + "</h2>");
     $("#start-button").hide();
-    displayQuestions()
 
     if (time === 0) {
       stop();
-      alert("Time's Up!");
+      alert("Time's Up!")
+      score ();
     }
-  }
-  
+  }  
+
   function stop () {
     clearInterval(timeID)
   }
 
+  $("#submit-button").on("click", score)
+
   var quizQuestions = [
+    {
+      question: "What training program does everyone miss on their first time?",
+      answers: ["The Fly Program", "The Jiu-Jitsu Program", "The Jump Program", "The Helicopter Program"],
+      correctAnswer:  2,
+    },
     {
       question: "How long did it take to shoot the opening action scene of the movie?",
       answers: ["2 weeks", "4 days", "2 days", "4 weeks"],
-      correctAnswer:  "4 days",
+      correctAnswer:  1,
     },
+    {
+      question: "What color pills does Morpheus offer Neo?",
+      answers: ["Red and Blue", "Red and Green", "Green and Blue", "Orange and Blue"],
+      correctAnswer:  0,
+    },
+    {
+      question: "What is Neo's real name?",
+      answers: ["Mark", "Peter", "Samuel", "Thomas"],
+      correctAnswer:  3,
+    }
   ]
-
-function createAnswerButtons () {
-  var answerOptions = ""
+  var userAnswers = []
   for (var i = 0; i < quizQuestions.length; i++) {
-		answerOptions.html('<label><input type="radio" name="optionsRadios" id="optionsRadios2" value="' + [i] +'"><div class="twd-opt">' + quizQuestions[i].answers + '</div></input><br></label>');
-	};
-}
-
-function displayQuestions() {
-  $("#quiz-questions").show();
-  for (var i = 0; i < quizQuestions.length; i++) {
-    $("#quiz-questions").html(quizQuestions[i].question);
+    userAnswers[i] = null;
   }
-  createAnswerButtons ()
-};
 
+  function displayQuestions() {
+    $("#quiz-questions").show();
+    for (var i = 0; i < quizQuestions.length; i++) {
+      $("#quiz-questions").append("<p>" + quizQuestions[i].question + "</p>");
+    for (var j = 0; j < quizQuestions[i].answers.length; j++)
+      $("#quiz-questions").append("<label class='radio-inline'><input type='radio' value=" + quizQuestions[i].correctAnswer + "> " + quizQuestions[i].answers[j] + "</input></label><br><br>");
+    }
+    $("input").click(function () {
+      $(userAnswers).push(this.value);
+    });
+  };
+
+  var correct = 0
+  var incorrect = 0
+  var unanswered = 0
+
+  function score () {
+    
+    for (var i = 0; i < quizQuestions[i].length; i++) {
+      if (quizQuestions[i].correctAnswer === userAnswers[i]) {
+        correct++;
+      }
+        else if (userAnswers[i] === null) {
+        unanswered++;
+      }
+      else {
+        incorrect++;
+      }
+    }  
+    console.log(correct)
+  }
 
 });
-
-/* function displayQuestions() {
-  $("#quiz-questions").html(quizQuestions.questions);
-};
-*/
