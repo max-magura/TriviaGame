@@ -45,27 +45,27 @@ $(document).ready(function() {
   var answersQues2 = ["Red and Blue", "Red and Green", "Green and Blue", "Orange and Blue"]
   var answersQues3 = ["Mark", "Peter", "Samuel", "Thomas"]
 
-  var correctAnswerValues = [2,1,0,3]
+  var correctAnswerValues = ["2","1","0","3"]
   var answerValues = [0,1,2,3]
 
   var answersDisplay0 = $("<div>")
   for (var i=0; i < answersQues0.length; i++) {
-    $(answersDisplay0).append("<input type='radio' name=ques0 value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
+    $(answersDisplay0).append("<input type='radio' name='ques0' value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
   };
 
   var answersDisplay1 = $("<div>")
   for (var i=0; i < answersQues0.length; i++) {
-    $(answersDisplay1).append("<input type='radio' name=ques1 value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
+    $(answersDisplay1).append("<input type='radio' name='ques1' value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
   };
 
   var answersDisplay2 = $("<div>")
   for (var i=0; i < answersQues2.length; i++) {
-    $(answersDisplay2).append("<input type='radio' name=ques2 value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
+    $(answersDisplay2).append("<input type='radio' name='ques2' value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
   };
 
   var answersDisplay3 = $("<div>")
   for (var i=0; i < answersQues3.length; i++) {
-    $(answersDisplay3).append("<input type='radio' name=ques3 value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
+    $(answersDisplay3).append("<input type='radio' name='ques3' value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
   };
 
   function displayQuestions() {
@@ -90,38 +90,48 @@ $(document).ready(function() {
     $(answersDisplay3).addClass("btn-group");
 
     $("input").click(function () {
-      userAnswers[this.name] = this.value;
-     
-      console.log(this.name)
+      if (this.name === "ques0") {
+       userPick0 = this.value
+       userAnswers.push(userPick0)
+      }
+      if (this.name === "ques1") {
+        userPick1 = this.value
+        userAnswers.push(userPick1)
+      }
+      if (this.name === "ques2") {
+      userPick2 = this.value
+      userAnswers.push(userPick2)
+      }
+      if (this.name === "ques3") {
+      userPick3 = this.value
+      userAnswers.push(userPick3)
+      }
+
     });
 
   };
 
-  var userPick0 = ""
-
-  var userAnswers = []
-
-  var correct = 0
-  var incorrect = 0
-  var unanswered = 0
+    var userPick0 = ""
+    var userPick1 = ""
+    var userPick2 = ""
+    var userPick3 = ""
+    var userAnswers= []
+  
 
   function score () {
-
     var correct = 0
-    var incorrect = 0
-    var unanswered = 0
-  
-  
+
     for (var i = 0; i < correctAnswerValues[i].length; i++) {
       if (correctAnswerValues[i] === userAnswers[i]) {
         correct++;
-      
+        console.log(correct)
       }
-      else {
-        incorrect++;
-      }
-    }  
-    console.log("correct: " + correct)
+    }
+
+
+    console.log(userAnswers)
+    console.log(correctAnswerValues)
+    console.log(correct)
   }
 
 });
