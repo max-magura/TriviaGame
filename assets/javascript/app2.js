@@ -50,24 +50,23 @@ $(document).ready(function() {
 
   var answersDisplay0 = $("<div>")
   for (var i=0; i < answersQues0.length; i++) {
-    $(answersDisplay0).append("<input type='radio' name=ques1 value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
+    $(answersDisplay0).append("<input type='radio' name=ques0 value=" + answerValues[i] + "> " + answersQues0[i] + "</input><br><br>")
   };
 
   var answersDisplay1 = $("<div>")
   for (var i=0; i < answersQues0.length; i++) {
-    $(answersDisplay1).append("<input type='radio' name=ques2 value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
+    $(answersDisplay1).append("<input type='radio' name=ques1 value=" + answerValues[i] + "> " + answersQues1[i] + "</input><br><br>")
   };
 
   var answersDisplay2 = $("<div>")
   for (var i=0; i < answersQues2.length; i++) {
-    $(answersDisplay2).append("<input type='radio' name=ques3 value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
+    $(answersDisplay2).append("<input type='radio' name=ques2 value=" + answerValues[i] + "> " + answersQues2[i] + "</input><br><br>")
   };
 
   var answersDisplay3 = $("<div>")
   for (var i=0; i < answersQues3.length; i++) {
-    $(answersDisplay3).append("<input type='radio' name=ques4 value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
+    $(answersDisplay3).append("<input type='radio' name=ques3 value=" + answerValues[i] + "> " + answersQues3[i] + "</input><br><br>")
   };
-
 
   function displayQuestions() {
     $("#quiz-questions").show();
@@ -90,8 +89,17 @@ $(document).ready(function() {
     $(answersDisplay2).addClass("btn-group");
     $(answersDisplay3).addClass("btn-group");
 
+    $("input").click(function () {
+      userAnswers[this.name] = this.value;
+     
+      console.log(this.name)
+    });
 
   };
+
+  var userPick0 = ""
+
+  var userAnswers = []
 
   var correct = 0
   var incorrect = 0
@@ -99,26 +107,21 @@ $(document).ready(function() {
 
   function score () {
 
-    var userAnswers = []
-
-    $("input").click(function () {
-      var userPick = $("input:checked").val();
-      userAnswers.push(userPick)
-      console.log(userAnswers)
-    });
-    
-    for (var i = 0; i < userAnswers[i].length; i++) {
+    var correct = 0
+    var incorrect = 0
+    var unanswered = 0
+  
+  
+    for (var i = 0; i < correctAnswerValues[i].length; i++) {
       if (correctAnswerValues[i] === userAnswers[i]) {
         correct++;
-      }
-        else if (userAnswers[i] === null) {
-        unanswered++;
+      
       }
       else {
         incorrect++;
       }
     }  
-    console.log(correct)
+    console.log("correct: " + correct)
   }
 
 });
